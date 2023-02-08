@@ -1,0 +1,6 @@
+num1=512
+num2=282
+num3=47
+num4=48
+num5=5
+print ("answer, ((num1-num2)/(num3*num4+num5))")
