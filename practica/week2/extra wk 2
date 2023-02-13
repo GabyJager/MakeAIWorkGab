@@ -1,0 +1,33 @@
+
+
+
+wordOrSentence = input ('Hello')
+
+
+
+
+digits = []
+def averageOfDigits(digits):
+    if digits == []:
+        return 0
+    return sum(digits)/len(digits)
+
+  
+   
+print(f'the average is {int(averageOfDigits(digits)) }')
+
+
+def count_vowels(wordOrSentence):
+    
+     
+
+
+    for char in wordOrSentence:
+        if char == 'a' or char == 'e' or char == 'i' or char == 'o' or  char == 'u':
+
+
+        return len(wordOfSentence
+        ) 
+
+     
+   
