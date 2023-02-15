@@ -1,0 +1,54 @@
+{
+ "cells": [
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "3e871fa2-a516-48ae-9198-e4d7a46a62b9",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "Pathlib: waar is het, dingen mee doen"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "f6f43de7-c905-43db-922d-d1b69e17873c",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "#import Path from pathlib\n",
+    "from patlib impor Path"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "20e8bd32-0d71-4138-b587-1c6e50b2f2df",
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3 (ipykernel)",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.10.10"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 5
+}
