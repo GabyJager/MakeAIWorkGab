@@ -1,0 +1,23 @@
+Onderbouwing
+
+Opschonen:
+Eerste dataset:
+In de eerste dataset zitten een paar missing values en duplicates, die we verwijderd hebben gezien het geringe aantal op het totaal aan data.
+Er is de sterkste correlatie tussen logischerwijs lifespan en genetic en een sterke met exercise en ook een correlatie met BMI. 
+Deze combinatie hadden we gemaakt op basis van kennis. In de tweede data set kan je ook goed zien dat er een correlatie is tussen BMI en lengte en met gewicht. We hebben afgerond op 2 decimalen. Tussen lengte en gewicht met lifespan is geen grote correlatie.
+Als je categorien ondergewicht, normaal, overgewicht en obesitas plot dan zie je een (negatieve)helling met lifespan. Alleen niet een negatieve helling met ondergewicht wat je wel zou verwachten op basis van kennis. De categorien zijn ook op basis van kennis gemaakt. Helaas kan je hier geen beschrijving of correlatie op los laten, omdat geen getallen, maar categorien zijn. 
+In de plots lijkt er ook een afname van lifespan te zijn bij roken. Dit is ook wat je zou verwachten. Er lijkt niet zo'n groot verschil met niet roken en weinig of misschien gelegenheids/weekend roken aangezien de data sigaretten per dag zijn. Als je clustert, wordt de afname duidelijker.
+De exercise data zijn al in categorie, doordat ze op het uur gaan ipv minuten. Dit geldt ook voor de sigaretten per stuk.
+
+
+Tweede dataset:
+De 2e dataset was moeilijker op te schonen, omdat de fouten of niet ingevulde data van alle data een categorie maakte.
+Er zit twee keer een fout in van een minimum van -1 bij lifespan wat gevolgen had voor de correlaties.
+Deze fouten hebben we eruit gehaald evenals de missende data en de dubbele data weer gezien het lage aantal.
+In deze dataset zit meer spreiding in genetic en is er dus een mindere correlatie met lifespan. Dit geldt ook voor de factor. 
+De sigaretten zijn een float geworden en er is een dalende lijn te zien in de plots en een duidelijke correlatie met lifespan.
+De categorie length en mass hebben we omgezet in bmi en eruit gehaald. 
+Bij BMI, genetic en lifespan vallen er waarden buiten het quantile wat een invloed heeft op de correlatie. Daarom gaan we trainen met een dataset met outliners en met de quantile, omdat te kijken naar de invloed van de outliners.
+De verzekeringspremie (factor genoemd) had ik ook berekend en had logischer wijs een sterke correlatie met lifespan, maar wordt niet gebruikt in de data set, omdat de y waarde=lifespan erin zit. Mogelijk kan deze nog gebruikt worden ter controle van het model.
+
+
