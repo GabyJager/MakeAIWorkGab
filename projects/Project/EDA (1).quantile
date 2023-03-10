@@ -19,6 +19,34 @@
   },
   {
    "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import logging\n",
+    "import sqlite3\n",
+    "\n",
+    "loggingPath = path.join(Path.\n",
+    "\n",
+    "dbPath= \"db.sqlite\n",
+    "\n",
+    "conn = sqlite3.connect('test_database') \n",
+    "c = conn.cursor()\n",
+    "\n",
+    "df= pd.read_sql('Select*From_apl\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "dbPath= \"/"
+   ]
+  },
+  {
+   "cell_type": "code",
    "execution_count": 3,
    "metadata": {
     "id": "X-Fbe3oLdxx8",
@@ -1443,6 +1471,33 @@
     "print()\n",
     "print(IQR)\n",
     "df = df[~((df < (Q1 - 1.5 * IQR)) |(df > (Q3 + 1.5 * IQR))).any(axis=1)]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "df.to_sql('test"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "#l/usr/bin/env"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "../scripts/pipeline.py"
    ]
   },
   {

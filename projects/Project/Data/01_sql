@@ -112,20 +112,48 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 24,
+   "execution_count": 32,
    "id": "c9e9fef3-8a17-46c0-b282-a0922518d6e7",
    "metadata": {
     "tags": []
    },
-   "outputs": [],
+   "outputs": [
+    {
+     "ename": "AttributeError",
+     "evalue": "'sqlite3.Cursor' object has no attribute 'commit'",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[1;31m---------------------------------------------------------------------------\u001b[0m",
+      "\u001b[1;31mAttributeError\u001b[0m                            Traceback (most recent call last)",
+      "Cell \u001b[1;32mIn[32], line 18\u001b[0m\n\u001b[0;32m      3\u001b[0m c\u001b[38;5;241m.\u001b[39mexecute(\u001b[38;5;124m'''\u001b[39m\n\u001b[0;32m      4\u001b[0m \u001b[38;5;124m          CREATE TABLE IF NOT EXISTS products\u001b[39m\n\u001b[0;32m      5\u001b[0m \u001b[38;5;124m          ([product_id] INTEGER PRIMARY KEY, [product_name] TEXT, [price] INTEGER)\u001b[39m\n\u001b[0;32m      6\u001b[0m \u001b[38;5;124m          \u001b[39m\u001b[38;5;124m'''\u001b[39m)\n\u001b[0;32m      8\u001b[0m c\u001b[38;5;241m.\u001b[39mexecute(\u001b[38;5;124m'''\u001b[39m\n\u001b[0;32m      9\u001b[0m \u001b[38;5;124m          INSERT INTO products (product_id, product_name, price)\u001b[39m\n\u001b[0;32m     10\u001b[0m \n\u001b[1;32m   (...)\u001b[0m\n\u001b[0;32m     16\u001b[0m \u001b[38;5;124m                (5,\u001b[39m\u001b[38;5;124m'\u001b[39m\u001b[38;5;124mChair\u001b[39m\u001b[38;5;124m'\u001b[39m\u001b[38;5;124m,150)\u001b[39m\n\u001b[0;32m     17\u001b[0m \u001b[38;5;124m          \u001b[39m\u001b[38;5;124m'''\u001b[39m)                     \n\u001b[1;32m---> 18\u001b[0m \u001b[43mconn\u001b[49m\u001b[38;5;241;43m.\u001b[39;49m\u001b[43mcommit\u001b[49m()\n",
+      "\u001b[1;31mAttributeError\u001b[0m: 'sqlite3.Cursor' object has no attribute 'commit'"
+     ]
+    }
+   ],
    "source": [
     "conn = sqlite3.connect('db.sqlite3') \n",
-    "c = conn.cursor()\n"
+    "conn = conn.cursor()\n",
+    "c.execute('''\n",
+    "          CREATE TABLE IF NOT EXISTS products\n",
+    "          ([product_id] INTEGER PRIMARY KEY, [product_name] TEXT, [price] INTEGER)\n",
+    "          ''')\n",
+    "          \n",
+    "c.execute('''\n",
+    "          INSERT INTO products (product_id, product_name, price)\n",
+    "\n",
+    "                VALUES\n",
+    "                (1,'Computer',800),\n",
+    "                (2,'Printer',200),\n",
+    "                (3,'Tablet',300),\n",
+    "                (4,'Desk',450),\n",
+    "                (5,'Chair',150)\n",
+    "          ''')                     \n",
+    "conn.commit()\n"
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 28,
+   "execution_count": 30,
    "id": "586e46aa-7349-4d60-adf0-e51a4392635f",
    "metadata": {
     "tags": []
@@ -136,7 +164,7 @@
      "evalue": "invalid syntax (2597886784.py, line 1)",
      "output_type": "error",
      "traceback": [
-      "\u001b[1;36m  Cell \u001b[1;32mIn[28], line 1\u001b[1;36m\u001b[0m\n\u001b[1;33m    df = pd.DataFrame(Colums: [], Index [])\u001b[0m\n\u001b[1;37m                            ^\u001b[0m\n\u001b[1;31mSyntaxError\u001b[0m\u001b[1;31m:\u001b[0m invalid syntax\n"
+      "\u001b[1;36m  Cell \u001b[1;32mIn[30], line 1\u001b[1;36m\u001b[0m\n\u001b[1;33m    df = pd.DataFrame(Colums: [], Index [])\u001b[0m\n\u001b[1;37m                            ^\u001b[0m\n\u001b[1;31mSyntaxError\u001b[0m\u001b[1;31m:\u001b[0m invalid syntax\n"
      ]
     }
    ],

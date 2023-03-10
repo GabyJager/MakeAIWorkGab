@@ -247,6 +247,15 @@
   },
   {
    "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "#patient_Df_histogram"
+   ]
+  },
+  {
+   "cell_type": "code",
    "execution_count": 3,
    "metadata": {
     "id": "IMqPADPrcARh",
