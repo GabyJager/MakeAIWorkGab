@@ -1,0 +1,905 @@
+{
+ "cells": [
+  {
+   "cell_type": "code",
+   "execution_count": 8,
+   "id": "27d283ef-9566-41f1-9561-4f8ff99e84f5",
+   "metadata": {
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "#import matplotlib.pyplot as plt\n",
+    "import numpy as np\n",
+    "import scipy as cp\n",
+    "import pandas as pd\n",
+    "from sklearn.linear_model import LinearRegression\n",
+    "from sklearn.model_selection import train_test_split"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 6,
+   "id": "90c01e60-ea71-4052-b8da-0e2d20d45434",
+   "metadata": {
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>genetic</th>\n",
+       "      <th>length</th>\n",
+       "      <th>mass</th>\n",
+       "      <th>exercise</th>\n",
+       "      <th>smoking</th>\n",
+       "      <th>alcohol</th>\n",
+       "      <th>sugar</th>\n",
+       "      <th>lifespan</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>73.9</td>\n",
+       "      <td>185.0</td>\n",
+       "      <td>99.7</td>\n",
+       "      <td>0.9</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>2.4</td>\n",
+       "      <td>6.9</td>\n",
+       "      <td>73.1</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>86.0</td>\n",
+       "      <td>172.0</td>\n",
+       "      <td>105.4</td>\n",
+       "      <td>1.8</td>\n",
+       "      <td>8.1</td>\n",
+       "      <td>0.4</td>\n",
+       "      <td>4.2</td>\n",
+       "      <td>85.0</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>83.3</td>\n",
+       "      <td>176.0</td>\n",
+       "      <td>111.4</td>\n",
+       "      <td>1.1</td>\n",
+       "      <td>0.8</td>\n",
+       "      <td>4.6</td>\n",
+       "      <td>7.5</td>\n",
+       "      <td>81.6</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>3</th>\n",
+       "      <td>82.8</td>\n",
+       "      <td>164.0</td>\n",
+       "      <td>111.4</td>\n",
+       "      <td>4.7</td>\n",
+       "      <td>11.8</td>\n",
+       "      <td>1.0</td>\n",
+       "      <td>2.9</td>\n",
+       "      <td>81.0</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>4</th>\n",
+       "      <td>78.7</td>\n",
+       "      <td>178.0</td>\n",
+       "      <td>71.6</td>\n",
+       "      <td>1.5</td>\n",
+       "      <td>8.3</td>\n",
+       "      <td>4.9</td>\n",
+       "      <td>5.5</td>\n",
+       "      <td>75.0</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>...</th>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>4091</th>\n",
+       "      <td>80.3</td>\n",
+       "      <td>176.0</td>\n",
+       "      <td>115.9</td>\n",
+       "      <td>3.7</td>\n",
+       "      <td>0.1</td>\n",
+       "      <td>5.6</td>\n",
+       "      <td>5.8</td>\n",
+       "      <td>80.7</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>4092</th>\n",
+       "      <td>75.3</td>\n",
+       "      <td>162.0</td>\n",
+       "      <td>129.6</td>\n",
+       "      <td>3.6</td>\n",
+       "      <td>6.2</td>\n",
+       "      <td>5.6</td>\n",
+       "      <td>7.6</td>\n",
+       "      <td>71.1</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>4093</th>\n",
+       "      <td>93.1</td>\n",
+       "      <td>189.0</td>\n",
+       "      <td>115.3</td>\n",
+       "      <td>2.7</td>\n",
+       "      <td>9.4</td>\n",
+       "      <td>4.9</td>\n",
+       "      <td>6.6</td>\n",
+       "      <td>90.0</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>4094</th>\n",
+       "      <td>77.9</td>\n",
+       "      <td>170.0</td>\n",
+       "      <td>90.8</td>\n",
+       "      <td>2.3</td>\n",
+       "      <td>13.2</td>\n",
+       "      <td>0.8</td>\n",
+       "      <td>6.2</td>\n",
+       "      <td>75.9</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>4095</th>\n",
+       "      <td>101.3</td>\n",
+       "      <td>188.0</td>\n",
+       "      <td>129.2</td>\n",
+       "      <td>1.2</td>\n",
+       "      <td>8.2</td>\n",
+       "      <td>6.0</td>\n",
+       "      <td>6.2</td>\n",
+       "      <td>96.9</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "<p>4096 rows × 8 columns</p>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "      genetic  length   mass  exercise  smoking  alcohol  sugar  lifespan\n",
+       "0        73.9   185.0   99.7       0.9      0.0      2.4    6.9      73.1\n",
+       "1        86.0   172.0  105.4       1.8      8.1      0.4    4.2      85.0\n",
+       "2        83.3   176.0  111.4       1.1      0.8      4.6    7.5      81.6\n",
+       "3        82.8   164.0  111.4       4.7     11.8      1.0    2.9      81.0\n",
+       "4        78.7   178.0   71.6       1.5      8.3      4.9    5.5      75.0\n",
+       "...       ...     ...    ...       ...      ...      ...    ...       ...\n",
+       "4091     80.3   176.0  115.9       3.7      0.1      5.6    5.8      80.7\n",
+       "4092     75.3   162.0  129.6       3.6      6.2      5.6    7.6      71.1\n",
+       "4093     93.1   189.0  115.3       2.7      9.4      4.9    6.6      90.0\n",
+       "4094     77.9   170.0   90.8       2.3     13.2      0.8    6.2      75.9\n",
+       "4095    101.3   188.0  129.2       1.2      8.2      6.0    6.2      96.9\n",
+       "\n",
+       "[4096 rows x 8 columns]"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "<class 'pandas.core.frame.DataFrame'>\n",
+      "RangeIndex: 4096 entries, 0 to 4095\n",
+      "Data columns (total 8 columns):\n",
+      " #   Column    Non-Null Count  Dtype  \n",
+      "---  ------    --------------  -----  \n",
+      " 0   genetic   4095 non-null   float64\n",
+      " 1   length    4093 non-null   float64\n",
+      " 2   mass      4094 non-null   float64\n",
+      " 3   exercise  4095 non-null   float64\n",
+      " 4   smoking   4096 non-null   float64\n",
+      " 5   alcohol   4094 non-null   float64\n",
+      " 6   sugar     4095 non-null   float64\n",
+      " 7   lifespan  4096 non-null   float64\n",
+      "dtypes: float64(8)\n",
+      "memory usage: 256.1 KB\n"
+     ]
+    },
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>genetic</th>\n",
+       "      <th>length</th>\n",
+       "      <th>mass</th>\n",
+       "      <th>exercise</th>\n",
+       "      <th>smoking</th>\n",
+       "      <th>alcohol</th>\n",
+       "      <th>sugar</th>\n",
+       "      <th>lifespan</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>count</th>\n",
+       "      <td>4095.000000</td>\n",
+       "      <td>4093.000000</td>\n",
+       "      <td>4094.000000</td>\n",
+       "      <td>4095.000000</td>\n",
+       "      <td>4096.000000</td>\n",
+       "      <td>4094.000000</td>\n",
+       "      <td>4095.000000</td>\n",
+       "      <td>4096.000000</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>mean</th>\n",
+       "      <td>82.268352</td>\n",
+       "      <td>183.880283</td>\n",
+       "      <td>92.268442</td>\n",
+       "      <td>2.402125</td>\n",
+       "      <td>9.807446</td>\n",
+       "      <td>2.264558</td>\n",
+       "      <td>6.482955</td>\n",
+       "      <td>80.127783</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>std</th>\n",
+       "      <td>7.442579</td>\n",
+       "      <td>12.623054</td>\n",
+       "      <td>25.791314</td>\n",
+       "      <td>1.170062</td>\n",
+       "      <td>6.921461</td>\n",
+       "      <td>1.800523</td>\n",
+       "      <td>2.710213</td>\n",
+       "      <td>8.042270</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>min</th>\n",
+       "      <td>63.900000</td>\n",
+       "      <td>154.000000</td>\n",
+       "      <td>50.000000</td>\n",
+       "      <td>0.100000</td>\n",
+       "      <td>0.000000</td>\n",
+       "      <td>0.000000</td>\n",
+       "      <td>0.700000</td>\n",
+       "      <td>-1.000000</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>25%</th>\n",
+       "      <td>77.600000</td>\n",
+       "      <td>175.000000</td>\n",
+       "      <td>71.500000</td>\n",
+       "      <td>1.500000</td>\n",
+       "      <td>3.300000</td>\n",
+       "      <td>0.600000</td>\n",
+       "      <td>4.400000</td>\n",
+       "      <td>75.000000</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>50%</th>\n",
+       "      <td>81.800000</td>\n",
+       "      <td>184.000000</td>\n",
+       "      <td>89.500000</td>\n",
+       "      <td>2.200000</td>\n",
+       "      <td>9.500000</td>\n",
+       "      <td>1.700000</td>\n",
+       "      <td>6.300000</td>\n",
+       "      <td>79.700000</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>75%</th>\n",
+       "      <td>86.700000</td>\n",
+       "      <td>193.000000</td>\n",
+       "      <td>110.875000</td>\n",
+       "      <td>3.200000</td>\n",
+       "      <td>15.900000</td>\n",
+       "      <td>4.000000</td>\n",
+       "      <td>8.400000</td>\n",
+       "      <td>85.200000</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>max</th>\n",
+       "      <td>102.200000</td>\n",
+       "      <td>214.000000</td>\n",
+       "      <td>163.600000</td>\n",
+       "      <td>5.500000</td>\n",
+       "      <td>22.200000</td>\n",
+       "      <td>6.000000</td>\n",
+       "      <td>13.800000</td>\n",
+       "      <td>105.100000</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "           genetic       length         mass     exercise      smoking  \\\n",
+       "count  4095.000000  4093.000000  4094.000000  4095.000000  4096.000000   \n",
+       "mean     82.268352   183.880283    92.268442     2.402125     9.807446   \n",
+       "std       7.442579    12.623054    25.791314     1.170062     6.921461   \n",
+       "min      63.900000   154.000000    50.000000     0.100000     0.000000   \n",
+       "25%      77.600000   175.000000    71.500000     1.500000     3.300000   \n",
+       "50%      81.800000   184.000000    89.500000     2.200000     9.500000   \n",
+       "75%      86.700000   193.000000   110.875000     3.200000    15.900000   \n",
+       "max     102.200000   214.000000   163.600000     5.500000    22.200000   \n",
+       "\n",
+       "           alcohol        sugar     lifespan  \n",
+       "count  4094.000000  4095.000000  4096.000000  \n",
+       "mean      2.264558     6.482955    80.127783  \n",
+       "std       1.800523     2.710213     8.042270  \n",
+       "min       0.000000     0.700000    -1.000000  \n",
+       "25%       0.600000     4.400000    75.000000  \n",
+       "50%       1.700000     6.300000    79.700000  \n",
+       "75%       4.000000     8.400000    85.200000  \n",
+       "max       6.000000    13.800000   105.100000  "
+      ]
+     },
+     "execution_count": 6,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df = pd.read_csv(\"./data.csv\", na_values=['?', \"undefined\"])\n",
+    "display(df)\n",
+    "\n",
+    "df.info()\n",
+    "df.describe()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 7,
+   "id": "be92176a-7523-4e8a-8d76-2cc3ce065671",
+   "metadata": {
+    "tags": []
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "number of duplicate rows:  (0, 9)\n",
+      "genetic     1\n",
+      "length      3\n",
+      "mass        2\n",
+      "exercise    1\n",
+      "smoking     0\n",
+      "alcohol     2\n",
+      "sugar       1\n",
+      "lifespan    0\n",
+      "bmi         5\n",
+      "dtype: int64\n"
+     ]
+    },
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>genetic</th>\n",
+       "      <th>length</th>\n",
+       "      <th>mass</th>\n",
+       "      <th>exercise</th>\n",
+       "      <th>smoking</th>\n",
+       "      <th>alcohol</th>\n",
+       "      <th>sugar</th>\n",
+       "      <th>lifespan</th>\n",
+       "      <th>bmi</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>73.9</td>\n",
+       "      <td>185.0</td>\n",
+       "      <td>99.7</td>\n",
+       "      <td>0.9</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>2.4</td>\n",
+       "      <td>6.9</td>\n",
+       "      <td>73.1</td>\n",
+       "      <td>29.13</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>86.0</td>\n",
+       "      <td>172.0</td>\n",
+       "      <td>105.4</td>\n",
+       "      <td>1.8</td>\n",
+       "      <td>8.1</td>\n",
+       "      <td>0.4</td>\n",
+       "      <td>4.2</td>\n",
+       "      <td>85.0</td>\n",
+       "      <td>35.63</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>83.3</td>\n",
+       "      <td>176.0</td>\n",
+       "      <td>111.4</td>\n",
+       "      <td>1.1</td>\n",
+       "      <td>0.8</td>\n",
+       "      <td>4.6</td>\n",
+       "      <td>7.5</td>\n",
+       "      <td>81.6</td>\n",
+       "      <td>35.96</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>3</th>\n",
+       "      <td>82.8</td>\n",
+       "      <td>164.0</td>\n",
+       "      <td>111.4</td>\n",
+       "      <td>4.7</td>\n",
+       "      <td>11.8</td>\n",
+       "      <td>1.0</td>\n",
+       "      <td>2.9</td>\n",
+       "      <td>81.0</td>\n",
+       "      <td>41.42</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>4</th>\n",
+       "      <td>78.7</td>\n",
+       "      <td>178.0</td>\n",
+       "      <td>71.6</td>\n",
+       "      <td>1.5</td>\n",
+       "      <td>8.3</td>\n",
+       "      <td>4.9</td>\n",
+       "      <td>5.5</td>\n",
+       "      <td>75.0</td>\n",
+       "      <td>22.60</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "   genetic  length   mass  exercise  smoking  alcohol  sugar  lifespan    bmi\n",
+       "0     73.9   185.0   99.7       0.9      0.0      2.4    6.9      73.1  29.13\n",
+       "1     86.0   172.0  105.4       1.8      8.1      0.4    4.2      85.0  35.63\n",
+       "2     83.3   176.0  111.4       1.1      0.8      4.6    7.5      81.6  35.96\n",
+       "3     82.8   164.0  111.4       4.7     11.8      1.0    2.9      81.0  41.42\n",
+       "4     78.7   178.0   71.6       1.5      8.3      4.9    5.5      75.0  22.60"
+      ]
+     },
+     "execution_count": 7,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "\n",
+    "df[\"bmi\"] = round(df[\"mass\"]/(df[\"length\"]/100)**2, 2)\n",
+    "\n",
+    "for x in df.index:\n",
+    "  if df.loc[x, \"lifespan\"] < 0:\n",
+    "    df.drop(x, inplace = True)\n",
+    "\n",
+    "df[\"lifespan\"]>1\n",
+    "df.describe()\n",
+    "\n",
+    "duplicate_rows_df = df[df.duplicated()]\n",
+    "print(\"number of duplicate rows: \", duplicate_rows_df.shape)\n",
+    "df = df.drop_duplicates()\n",
+    "\n",
+    "print(df.isnull().sum())\n",
+    "df = df.dropna()\n",
+    "df.head()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 9,
+   "id": "933756be-dff1-4479-9a98-256bc0cd4300",
+   "metadata": {
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>genetic</th>\n",
+       "      <th>exercise</th>\n",
+       "      <th>smoking</th>\n",
+       "      <th>alcohol</th>\n",
+       "      <th>sugar</th>\n",
+       "      <th>lifespan</th>\n",
+       "      <th>bmi</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>73.9</td>\n",
+       "      <td>0.9</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>2.4</td>\n",
+       "      <td>6.9</td>\n",
+       "      <td>73.1</td>\n",
+       "      <td>29.13</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>86.0</td>\n",
+       "      <td>1.8</td>\n",
+       "      <td>8.1</td>\n",
+       "      <td>0.4</td>\n",
+       "      <td>4.2</td>\n",
+       "      <td>85.0</td>\n",
+       "      <td>35.63</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>83.3</td>\n",
+       "      <td>1.1</td>\n",
+       "      <td>0.8</td>\n",
+       "      <td>4.6</td>\n",
+       "      <td>7.5</td>\n",
+       "      <td>81.6</td>\n",
+       "      <td>35.96</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>3</th>\n",
+       "      <td>82.8</td>\n",
+       "      <td>4.7</td>\n",
+       "      <td>11.8</td>\n",
+       "      <td>1.0</td>\n",
+       "      <td>2.9</td>\n",
+       "      <td>81.0</td>\n",
+       "      <td>41.42</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>4</th>\n",
+       "      <td>78.7</td>\n",
+       "      <td>1.5</td>\n",
+       "      <td>8.3</td>\n",
+       "      <td>4.9</td>\n",
+       "      <td>5.5</td>\n",
+       "      <td>75.0</td>\n",
+       "      <td>22.60</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "   genetic  exercise  smoking  alcohol  sugar  lifespan    bmi\n",
+       "0     73.9       0.9      0.0      2.4    6.9      73.1  29.13\n",
+       "1     86.0       1.8      8.1      0.4    4.2      85.0  35.63\n",
+       "2     83.3       1.1      0.8      4.6    7.5      81.6  35.96\n",
+       "3     82.8       4.7     11.8      1.0    2.9      81.0  41.42\n",
+       "4     78.7       1.5      8.3      4.9    5.5      75.0  22.60"
+      ]
+     },
+     "execution_count": 9,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df = df.drop(['length', 'mass'], axis=1)\n",
+    "df.head()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 10,
+   "id": "705bb62f-f1b0-4eb2-9750-67942811f825",
+   "metadata": {
+    "tags": []
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "genetic     77.6000\n",
+      "exercise     1.5000\n",
+      "smoking      3.3750\n",
+      "alcohol      0.6000\n",
+      "sugar        4.4000\n",
+      "lifespan    75.0000\n",
+      "bmi         20.9375\n",
+      "Name: 0.25, dtype: float64\n",
+      "\n",
+      "genetic     86.7000\n",
+      "exercise     3.2000\n",
+      "smoking     15.9000\n",
+      "alcohol      4.0000\n",
+      "sugar        8.4000\n",
+      "lifespan    85.2000\n",
+      "bmi         33.2075\n",
+      "Name: 0.75, dtype: float64\n",
+      "\n",
+      "genetic      9.100\n",
+      "exercise     1.700\n",
+      "smoking     12.525\n",
+      "alcohol      3.400\n",
+      "sugar        4.000\n",
+      "lifespan    10.200\n",
+      "bmi         12.270\n",
+      "dtype: float64\n"
+     ]
+    }
+   ],
+   "source": [
+    "Q1 = df.quantile(0.25)\n",
+    "Q3 = df.quantile(0.75)\n",
+    "IQR = Q3 - Q1\n",
+    "print(Q1)\n",
+    "print()\n",
+    "print(Q3)\n",
+    "print()\n",
+    "print(IQR)\n",
+    "df = df[~((df < (Q1 - 1.5 * IQR)) |(df > (Q3 + 1.5 * IQR))).any(axis=1)]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 12,
+   "id": "3867da26-502a-41f4-a8c8-126723c67307",
+   "metadata": {
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "X = df[['smoking', 'bmi', 'genetic', \"exercise\", \"alcohol\", \"sugar\" ]]\n",
+    "y = df['lifespan']"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 13,
+   "id": "e5d1aa2f-09b6-4857-84ab-1ce41329230c",
+   "metadata": {
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "X_train, X_test, y_train, y_test = train_test_split (X,y, random_state = 42)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 20,
+   "id": "ab44b38d-0a7d-428f-ad9a-088019035655",
+   "metadata": {
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "regr = LinearRegression()\n",
+    "regr.fit(X_train, y_train)\n",
+    "\n",
+    "y_train_pred = regr.predict(X_train)\n",
+    "y_test_pred = regr.predict(X_test)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 15,
+   "id": "1d82f42d-da79-4044-9cd1-172c86978ea8",
+   "metadata": {
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "0.9806055320617403"
+      ]
+     },
+     "execution_count": 15,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "regr.score(X_test, y_test)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 22,
+   "id": "e066b5ad-0ddb-4a96-8e93-977438ef098b",
+   "metadata": {
+    "tags": []
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "0.7986478219684219\n",
+      "0.7798860317740618\n"
+     ]
+    }
+   ],
+   "source": [
+    "from sklearn.metrics import mean_absolute_error\n",
+    "mar_train = mean_absolute_error(y_train, y_train_pred)\n",
+    "print(mar_train)\n",
+    "mar_test = mean_absolute_error(y_test, y_test_pred)\n",
+    "print(mar_test)\n",
+    "\n",
+    "\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 23,
+   "id": "600a91a9-a7bb-4adb-866a-7efb47efadb5",
+   "metadata": {
+    "tags": []
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[91.64226847]\n"
+     ]
+    },
+    {
+     "name": "stderr",
+     "output_type": "stream",
+     "text": [
+      "C:\\Users\\31623\\MakeAIWorkGab\\env\\lib\\site-packages\\sklearn\\base.py:420: UserWarning: X does not have valid feature names, but LinearRegression was fitted with feature names\n",
+      "  warnings.warn(\n"
+     ]
+    }
+   ],
+   "source": [
+    "lifespan = regr.predict([[0, 20, 90, 2, 0, 0]])\n",
+    "print(lifespan)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 29,
+   "id": "405c000f-2ca8-4588-a57a-c4e214dfac71",
+   "metadata": {
+    "tags": []
+   },
+   "outputs": [
+    {
+     "ename": "SyntaxError",
+     "evalue": "invalid syntax (2785759210.py, line 5)",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[1;36m  Cell \u001b[1;32mIn[29], line 5\u001b[1;36m\u001b[0m\n\u001b[1;33m    Load:\u001b[0m\n\u001b[1;37m         ^\u001b[0m\n\u001b[1;31mSyntaxError\u001b[0m\u001b[1;31m:\u001b[0m invalid syntax\n"
+     ]
+    }
+   ],
+   "source": [
+    "import pickle\n",
+    "\n",
+    "with open(\"regr\", \"wb\") as f:\n",
+    "    pickle.dump(regr, f)\n",
+    "    \n",
+    "#Load:\n",
+    "\n",
+    "with open(\"regr.pkl\", \"rb\") as f:\n",
+    "    model = pickle.load(f)\n",
+    "\n",
+    "\n",
+    "\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 25,
+   "id": "8a058f3f-ed4a-402a-b3aa-0b6ed1478089",
+   "metadata": {
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "array([-0.26397382, -0.06326914,  1.00085896,  0.80529466, -0.21647424,\n",
+       "       -0.07260688])"
+      ]
+     },
+     "execution_count": 25,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "regr.coef_"
+   ]
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3 (ipykernel)",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.10.10"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 5
+}
