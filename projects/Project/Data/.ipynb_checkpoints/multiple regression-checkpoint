@@ -826,34 +826,66 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 29,
+   "execution_count": 30,
    "id": "405c000f-2ca8-4588-a57a-c4e214dfac71",
    "metadata": {
     "tags": []
    },
-   "outputs": [
-    {
-     "ename": "SyntaxError",
-     "evalue": "invalid syntax (2785759210.py, line 5)",
-     "output_type": "error",
-     "traceback": [
-      "\u001b[1;36m  Cell \u001b[1;32mIn[29], line 5\u001b[1;36m\u001b[0m\n\u001b[1;33m    Load:\u001b[0m\n\u001b[1;37m         ^\u001b[0m\n\u001b[1;31mSyntaxError\u001b[0m\u001b[1;31m:\u001b[0m invalid syntax\n"
-     ]
-    }
-   ],
+   "outputs": [],
    "source": [
     "import pickle\n",
     "\n",
     "with open(\"regr\", \"wb\") as f:\n",
     "    pickle.dump(regr, f)\n",
     "    \n",
-    "#Load:\n",
     "\n",
-    "with open(\"regr.pkl\", \"rb\") as f:\n",
-    "    model = pickle.load(f)\n",
     "\n",
     "\n",
     "\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 32,
+   "id": "cd1615f0-0fe1-4734-9096-0cf02a7c75c0",
+   "metadata": {
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "#Load:\n",
+    "\n",
+    "with open(\"regr\", \"rb\") as f:\n",
+    "    model = pickle.load(f)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 34,
+   "id": "3e2e870d-7b73-4d11-8220-e88acd94520e",
+   "metadata": {
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "#To save your model in dump is used where 'wb' means write binary.\n",
+    "\n",
+    "pickle.dump(regr, open(\"lifespan.pickle\", 'wb')) #Saving the model\n",
+    "\n",
+    "#To load the saved model wherever need load is used where 'rb' means read binary.\n",
+    "\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 35,
+   "id": "f3d45ea3-808d-4a66-8b0c-8e1768a3f809",
+   "metadata": {
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "model = pickle.load(open(\"lifespan.pickle\", 'rb')) #To load saved model from local directory"
    ]
   },
   {
