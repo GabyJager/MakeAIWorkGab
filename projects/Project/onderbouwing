@@ -1,3 +1,4 @@
+
 Onderbouwing
 
 Opschonen:
@@ -19,5 +20,22 @@ De sigaretten zijn een float geworden en er is een dalende lijn te zien in de pl
 De categorie length en mass hebben we omgezet in bmi en eruit gehaald. 
 Bij BMI, genetic en lifespan vallen er waarden buiten het quantile wat een invloed heeft op de correlatie. Daarom gaan we trainen met een dataset met outliners en met de quantile, omdat te kijken naar de invloed van de outliners.
 De verzekeringspremie (factor genoemd) had ik ook berekend en had logischer wijs een sterke correlatie met lifespan, maar wordt niet gebruikt in de data set, omdat de y waarde=lifespan erin zit. Mogelijk kan deze nog gebruikt worden ter controle van het model.
+
+Machinelearning:
+Frank adviseerde ons om multiple regression, decision tree en random forest te gebruiken. 
+multiple regression wilde we toch al gebruiken, omdat met name genetic en in mindere mate smoking een lineair verband lieten zien in de data analyse. Alleen BMI had duidelijk geen lineair verband. Multiple regression, omdat er meerdere variabelen zijn. 
+Voor de multiple regression heb ik length en mass kolommen verwijderd, omdat we deze verwerkt hadden in bmi.
+Ik heb met de quantile gewerkt, omdat ik in 3 school had gelezen dat outliers een negatief effect hadden op lineaire regressie.
+Ik heb voor een standaard train, fit, test programma gekozen dat met 75% van de data traint en met de resterende 25% test. 
+In de decision tree kon ik met de classificatie van de bmi, bmi_bins werken. Het regressie model gaat oneindig door. Ik heb het teruggebracht naar 4 keer, wat ook al lang duurde. 
+
+Interface:
+Ik heb gekozen om de multiple regression te gebruiken, omdat deze een sterk verband heeft met een kleine error, snel werkt en een concrete waarde geeft, die een arts kan gebruiken om een patient te motiveren om gezonder te leven. 
+
+Ethiek:
+Ik zou mij voor kunnen stallen om de app te gebruiken om mensen te motiveren om gezonder te leven. Voor de verzekeringspremie niet. 
+Deze gegevens mogen niet in handen van de verzekeringsmaatschappij komen. Dan zouden mensen met een ongezonde leefstijl een hele hoge premie voor hun levensverzekering krijgen. Dit wordt natuurlijk toch al gedaan, doordat je een gezondheidsverklaring moet invullen.
+De mensen met een ongezonde leefstijl zouden korter leven en welliswaar intensiever gebruik maken van de gezondheidszorg, maar wel korter. 
+
 
 
