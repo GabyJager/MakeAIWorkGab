@@ -15,7 +15,7 @@ logging.info("Load transformed data from database into dataframe")
 
 logging.info(f"Connect to {Path(db_mcr).name}")
 dbConnection = sqlite3.connect(db_mcr)
-dfFromDB = pd.read_sql_query(f"SELECT * FROM rest_api_netlify", dbConnection)
+df = pd.read_sql_query(f"SELECT * FROM rest_api_netlify", dbConnection)
 logging.debug(dfFromDB.head())
 
 
