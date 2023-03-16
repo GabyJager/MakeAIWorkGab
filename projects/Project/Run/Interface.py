@@ -1,4 +1,4 @@
-
+print("Lifespan calculator depending on lifestyle")
 
 import logging
 import pandas as pd
@@ -19,7 +19,7 @@ def predict(smoking, bmi, genetic, exercise, alcohol, sugar):
 
 
 
-print("BMI calculator")
+print("")
 
 while True:
     length= float(input("Please fill in length in centimeters: and ENTER "))
@@ -28,7 +28,7 @@ while True:
             
     else:
 
-        print("Please check and if necessary correct input")
+        print("Please check and if necessary correct input. If your input is correct, but not accepted; Sorry, this app is not suitable for this input")
     
     
 while True:
@@ -38,7 +38,7 @@ while True:
             
     else:
 
-        print("Please check and if necessary correct input")
+        print("Please check and if necessary correct input. If your input is correct, but not accepted; Sorry, this app is not suitable for this input")
                     
 
 bmi=float(round(mass/(length/100)**2))
@@ -55,7 +55,7 @@ while True:
             
     else:
 
-        print("Please check and if necessary correct input")
+        print("Please check and if necessary correct input. If your input is correct, but not accepted; Sorry, this app is not suitable for this input")
 
     
 
@@ -66,7 +66,7 @@ while True:
             
     else:
 
-        print("Please check and if necessary correct input")
+        print("Please check and if necessary correct input. If your input is correct, but not accepted; Sorry, this app is not suitable for this input")
 
     
 while True:
@@ -76,7 +76,7 @@ while True:
             
     else:
 
-        print("Please check and if necessary correct input")
+        print("Please check and if necessary correct input. If your input is correct, but not accepted; Sorry, this app is not suitable for this input")
 
     
 while True:
@@ -96,7 +96,7 @@ while True:
             
     else:
 
-        print("Please check and if necessary correct input")
+        print("Please check and if necessary correct input. If your input is correct, but not accepted; Sorry, this app is not suitable for this input")
 
 print(smoking, bmi, genetic, exercise, alcohol, sugar)
 prediction = predict(smoking, bmi, genetic, exercise, alcohol, sugar)
