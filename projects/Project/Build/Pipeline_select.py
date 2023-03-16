@@ -9,7 +9,7 @@ from pathlib import Path
 
 # Global configuration
 logging.basicConfig(level=logging.DEBUG)
-db_mcr = "db.sqlite3"
+db_mcr = "projects/project/Data/db.sqlite3"
 table_lifespan = "rest_api_netlify"
 
 # Collecting the data
@@ -27,20 +27,20 @@ logging.info("Preprocessing : remove rows with missing values")
 dfCleanFromDB = dfFromDB.dropna()
 logging.debug(dfCleanFromDB.head())
 
-for x in df.index:
-  if df.loc[x, "lifespan"] < 0:
-    df.drop(x, inplace = True)
+for x in dfCleanFromDB.index:
+  if dfCleanFromDB.loc[x, "lifespan"] < 0:
+    dfCleanFromDB.drop(x, inplace = True)
 
 dfCleanFromDB["lifespan"]>1
 dfCleanFromDB.describe()
 
-duplicate_rows_df = df[df.duplicated()]
+duplicate_rows_df = dfCleanFromDB[dfCleanFromDB.duplicated()]
 print("number of duplicate rows: ", duplicate_rows_df.shape)
-dfCleanFromDB = df.drop_duplicates()
+dfCleanFromDB = dfCleanFromDB.drop_duplicates()
 
-print(df.isnull().sum())
-dfCleanFromDB = df.dropna()
-df.head()
+print(dfCleanFromDB.isnull().sum())
+dfCleanFromDB = dfCleanFromDB.dropna()
+dfCleanFromDB.head()
 
 logging.info("Preprocessing : remove rows with missing values")
 dfCleanFromDB = dfFromDB.dropna()
@@ -48,7 +48,7 @@ logging.debug(dfCleanFromDB.head())
 
 
 # Transform
-dfSelection = dfCleanFromDB[['length', 'mass', 'lifespan, "smoking","genetic","exercise", "alcohol", "sugar']]
+dfSelection = dfCleanFromDB[['length', 'mass']]
 length = dfSelection['length']
 mass = dfSelection['mass']
 logging.debug(dfSelection.head())
@@ -60,11 +60,11 @@ logging.debug(f"BMI : {bmi}")
 
 dfSelection["bmi"] = round(df["mass"]/(df["length"]/100)**2, 2)
 
-dfSelection= df.drop(['length', 'mass'], axis=1)
+dfSelection= dfCleanFromDB.drop(['length', 'mass'], axis=1)
 dfSelection.head()
 
-Q1 = df.quantile(0.25)
-Q3 = df.quantile(0.75)
+Q1 = dfCleanFromDB.quantile(0.25)
+Q3 = dfCleanFromDB.quantile(0.75)
 IQR = Q3 - Q1
 print(Q1)
 print()
