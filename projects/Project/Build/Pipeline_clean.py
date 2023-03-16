@@ -74,6 +74,7 @@ df = df[~((df < (Q1 - 1.5 * IQR)) |(df > (Q3 + 1.5 * IQR))).any(axis=1)]
 
 # Save df as new table
 dfSelection.to_sql('bmi', con=dbConnection, if_exists='replace', index=False)
+dfSelection. to_csv
 
 # close Connection
 dbConnection.close()

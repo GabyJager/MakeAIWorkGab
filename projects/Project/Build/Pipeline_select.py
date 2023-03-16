@@ -1,4 +1,4 @@
-#Pipeline niet kunnen testen ivm weer niet herkennen van de table
+
 
 import logging
 import pandas as pd
@@ -55,10 +55,10 @@ logging.debug(dfSelection.head())
 
 # BMI = (Weight in Kilograms / (Height in Meters x Height in Meters))
 noemer = pow(length/100, 2)
-bmi = (mass / noemer) if (noemer > 0) else 0
+bmi = (mass / noemer) 
 logging.debug(f"BMI : {bmi}")
 
-dfSelection["bmi"] = round(df["mass"]/(df["length"]/100)**2, 2)
+dfSelection["bmi"] = round(dfCleanFromDB["mass"]/(dfCleanFromDB["length"]/100)**2, 2)
 
 dfSelection= dfCleanFromDB.drop(['length', 'mass'], axis=1)
 dfSelection.head()
@@ -71,7 +71,7 @@ print()
 print(Q3)
 print()
 print(IQR)
-dfSelection = dfCleanFromDB[~((df < (Q1 - 1.5 * IQR)) |(dfCleanFromDB> (Q3 + 1.5 * IQR))).any(axis=1)]
+dfSelection = dfCleanFromDB[~((dfCleanFromDB < (Q1 - 1.5 * IQR)) |(dfCleanFromDB> (Q3 + 1.5 * IQR))).any(axis=1)]
 
 # Save df as new table
 dfSelection.to_sql('bmi', con=dbConnection, if_exists='replace', index=False)
