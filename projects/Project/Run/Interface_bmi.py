@@ -9,7 +9,7 @@ import sqlite3
 
 # Global configuration
 logging.basicConfig(level=logging.DEBUG)
-lifespan = pickle.load(open("projects/project/Model/lifespan.pickle", 'rb')) 
+lifespan = pickle.load(open("projects/project/model/lifespan.pickle", 'rb')) 
 
 def predict(smoking, bmi, genetic, exercise, alcohol, sugar):
 
