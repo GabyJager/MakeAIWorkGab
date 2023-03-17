@@ -15,7 +15,7 @@ logging.info("Load transformed data from database into dataframe")
 
 logging.info(f"Connect to {Path(db_mcr).name}")
 dbConnection = sqlite3.connect(db_mcr)
-df = pd.read_sql_query(f"SELECT * FROM rest_api_netlify", dbConnection)
+dfFromDB = pd.read_sql_query(f"SELECT * FROM rest_api_netlify", dbConnection)
 logging.debug(dfFromDB.head())
 
 
@@ -74,7 +74,8 @@ df = df[~((df < (Q1 - 1.5 * IQR)) |(df > (Q3 + 1.5 * IQR))).any(axis=1)]
 
 # Save df as new table
 dfSelection.to_sql('bmi', con=dbConnection, if_exists='replace', index=False)
-dfSelection. to_csv
+#dfSelection. to_csv
 
+#../scripts/pipeline.py
 # close Connection
 dbConnection.close()
